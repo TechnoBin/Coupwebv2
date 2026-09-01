@@ -14,12 +14,14 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
+
+<body>
   <!-- Memory Photo Popup -->
 <div class="memory-modal" id="memoryModal">
-    <div class="memory-overlay" onclick="closeMemory()"></div>
+    <div class="memory-overlay"></div>
 
     <div class="memory-popup">
-        <button class="memory-close" onclick="closeMemory()">×</button>
+        <button class="memory-close">×</button>
 
         <img id="memoryPopupImage" src="" alt="Memory">
 
@@ -27,7 +29,6 @@
     </div>
 </div>
 
-<body>
   <div class="ambient ambient-one" aria-hidden="true"></div>
   <div class="ambient ambient-two" aria-hidden="true"></div>
   <div class="bg-hearts" aria-hidden="true"></div>
@@ -155,8 +156,7 @@
         </p>
 
         <div class="memory-grid">
-          <article class="memory memory-one"
-            onclick="openMemory(0)">
+          <article class="memory memory-one">
             <div class="memory-art art-one" aria-hidden="true">
               <span class="art-sun"></span>
               <span class="art-window"></span>
@@ -167,8 +167,7 @@
             <p>One ordinary day that somehow became one of my favourites.</p>
           </article>
 
-          <article class="memory memory-two"
-            onclick="openMemory(1)">
+          <article class="memory memory-two">
             <div class="memory-art art-two" aria-hidden="true">
               <span class="art-orbit"></span>
               <span class="art-star star-a">✦</span>
@@ -180,8 +179,7 @@
             <p>The silly conversations, random laughs and everything between.</p>
           </article>
 
-          <article class="memory memory-three"
-            onclick="openMemory(2)">
+          <article class="memory memory-three">
             <div class="memory-art art-three" aria-hidden="true">
               <span class="moon"></span>
               <span class="cloud cloud-a"></span>
