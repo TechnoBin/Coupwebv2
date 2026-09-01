@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fff7fb">
+  <meta name="description" content="A little secret made with love.">
+  <meta name="color-scheme" content="light">
+  <title>Just For You ❤️</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="bg-hearts" aria-hidden="true"></div>
+  <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+  <main id="story">
+
+    <!-- PASSWORD -->
+    <section class="screen active" id="passwordScreen" aria-labelledby="passwordTitle">
+      <div class="glass-card password-card">
+        <div class="icon-orb lock-icon" aria-hidden="true">🔐</div>
+        <span class="eyebrow">A little secret</span>
+        <h1 id="passwordTitle">Before we begin<span class="accent-dot">.</span></h1>
+        <p class="hero-copy">
+          There's something waiting for you.<br>
+          But first, prove you're the right person. 👀
+        </p>
+
+        <form id="passwordForm" class="password-form" novalidate>
+          <label for="passwordInput" class="sr-only">Enter password</label>
+
+          <div class="input-wrap">
+            <span aria-hidden="true">♡</span>
+            <input
+              id="passwordInput"
+              type="password"
+              inputmode="text"
+              autocomplete="off"
+              autocapitalize="none"
+              spellcheck="false"
+              placeholder="Enter the secret password"
+              maxlength="40"
+              required
+            >
+          </div>
+
+          <button type="submit" class="primary-btn full-btn">
+            <span>Unlock it</span><b>→</b>
+          </button>
+        </form>
+
+        <p class="password-hint" id="passwordMessage" aria-live="polite">
+          Hint: it's something only we know. ❤️
+        </p>
+      </div>
+    </section>
+
+    <!-- HOME -->
+    <section class="screen" id="home" aria-labelledby="homeTitle">
+      <div class="glass-card hero-card">
+        <div class="hero-heart" aria-hidden="true">
+          <span>♥</span>
+        </div>
+
+        <span class="eyebrow">Welcome, favourite person</span>
+        <h1 id="homeTitle">Hey, you<span class="accent-dot">.</span></h1>
+
+        <p class="hero-copy">
+          I made something small.<br>
+          It may or may not make you smile. 👀
+        </p>
+
+        <button class="primary-btn" data-next="question">
+          <span>Okay, show me</span><b>→</b>
+        </button>
+
+        <p class="tiny-note">No pressure. Probably. 😌</p>
+      </div>
+    </section>
+
+    <!-- QUESTION -->
+    <section class="screen" id="question" aria-labelledby="questionTitle">
+      <div class="glass-card question-card">
+        <div class="mini-heart" aria-hidden="true">♡</div>
+        <span class="eyebrow">Question 01</span>
+
+        <h2 id="questionTitle">
+          Do you think you're<br>
+          <em>my favourite person?</em>
+        </h2>
+
+        <p class="subtext">Choose carefully. There are consequences. 😂</p>
+
+        <div class="choice-area" id="choiceArea">
+          <button class="primary-btn yes-btn" id="yesBtn">Obviously ❤️</button>
+          <button class="secondary-btn no-btn" id="noBtn">No 😌</button>
+        </div>
+
+        <p class="tease" id="teaseText" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- YES -->
+    <section class="screen" id="afterYes" aria-labelledby="yesTitle">
+      <div class="glass-card success-card">
+        <div class="success-icon" aria-hidden="true">💗</div>
+        <span class="eyebrow">Correct answer!</span>
+
+        <h2 id="yesTitle">
+          See?<br>
+          <em>I knew you'd choose me.</em>
+        </h2>
+
+        <p class="subtext">Okay okay... now let's get a little serious.</p>
+
+        <button class="primary-btn" data-next="memories">
+          <span>Continue</span><b>→</b>
+        </button>
+      </div>
+    </section>
+
+    <!-- MEMORIES -->
+    <section class="screen" id="memories" aria-labelledby="memoriesTitle">
+      <div class="content-card wide-card">
+        <span class="eyebrow">Our little things</span>
+
+        <h2 id="memoriesTitle">
+          Some moments<br>
+          <em>worth keeping.</em>
+        </h2>
+
+        <p class="subtext">
+          Maybe they're small moments.<br>
+          But somehow, they became special.
+        </p>
+
+        <div class="memory-grid">
+          <article class="memory memory-one">
+            <div class="memory-art art-one" aria-hidden="true">
+              <span class="art-sun"></span>
+              <span class="art-window"></span>
+              <span class="art-spark">✦</span>
+            </div>
+            <span class="memory-number">01</span>
+            <h3>That one day</h3>
+            <p>One ordinary day that somehow became one of my favourites.</p>
+          </article>
+
+          <article class="memory memory-two">
+            <div class="memory-art art-two" aria-hidden="true">
+              <span class="art-orbit"></span>
+              <span class="art-star star-a">✦</span>
+              <span class="art-star star-b">✧</span>
+              <span class="art-heart">♥</span>
+            </div>
+            <span class="memory-number">02</span>
+            <h3>Random moments</h3>
+            <p>The silly conversations, random laughs and everything between.</p>
+          </article>
+
+          <article class="memory memory-three">
+            <div class="memory-art art-three" aria-hidden="true">
+              <span class="moon"></span>
+              <span class="cloud cloud-a"></span>
+              <span class="cloud cloud-b"></span>
+              <span class="art-star star-c">✦</span>
+            </div>
+            <span class="memory-number">03</span>
+            <h3>Still my favourite</h3>
+            <p>Some people just have a way of making everything feel like home.</p>
+          </article>
+        </div>
+
+        <button class="primary-btn" data-next="message">
+          <span>One last thing</span><b>→</b>
+        </button>
+      </div>
+    </section>
+
+    <!-- FINAL MESSAGE -->
+    <section class="screen" id="message" aria-labelledby="messageTitle">
+      <div class="glass-card final-card">
+        <div class="sparkle" aria-hidden="true">✦ ♡ ✦</div>
+        <span class="eyebrow">A little message</span>
+
+        <h2 id="messageTitle">
+          You're kind of<br>
+          <em>my favourite.</em>
+        </h2>
+
+        <p class="letter">
+          Life is made of tiny moments, silly conversations, random laughs
+          and people who make ordinary days feel special.
+          <br><br>
+          Somehow, you're one of those people for me.
+        </p>
+
+        <p class="signature">— someone who likes you a little too much ♡</p>
+
+        <button class="primary-btn surprise-btn" id="surpriseBtn">
+          <span>Open your surprise</span><b>💌</b>
+        </button>
+
+        <div class="surprise" id="surprise" aria-hidden="true">
+          <div class="surprise-inner">
+            <div class="surprise-heart" aria-hidden="true">💖</div>
+            <span class="surprise-label">Plot twist...</span>
+
+            <h3>
+              You were the reason<br>
+              I made this whole website.
+            </h3>
+
+            <p>
+              And if you smiled even once while going through this,
+              then it was completely worth it. 🥹❤️
+            </p>
+
+            <div class="heart-divider" aria-hidden="true">♡ ♥ ♡</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="restart-btn" id="restartBtn">↻ Start again</button>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
