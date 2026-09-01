@@ -61,49 +61,81 @@ const memoryData = [
     }
 ];
 
-function openMemory(index) {
+/* ================================
+   MEMORY PHOTO POPUP
+================================ */
+
+function openMemory(index, cardElement) {
     const modal = document.getElementById("memoryModal");
-    const image = document.getElementById("memoryPopupImage");
+    const modalImg = document.getElementById("memoryPopupImage");
     const text = document.getElementById("memoryPopupText");
 
-    image.src = memoryData[index].image;
+    // 1. Find the small image that was clicked
+    const thumbImg = cardElement.querySelector('.memory-thumb');
+
+    // 2. Load the correct data
+    modalImg.src = memoryData[index].image;
     text.textContent = memoryData[index].text;
 
+    // 3. Get exact screen positions of both images
+    const startRect = thumbImg.getBoundingClientRect();
+    const finalRect = modalImg.getBoundingClientRect();
+
+    // 4. Calculate the distance and scale difference
+    const scaleX = startRect.width / finalRect.width;
+    const scaleY = startRect.height / finalRect.height;
+    const translateX = startRect.left - finalRect.left;
+    const translateY = startRect.top - finalRect.top;
+
+    // 5. Instantly shrink and move the large image to sit on top of the small one
+    modalImg.style.transition = 'none';
+    modalImg.style.transformOrigin = 'top left';
+    modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
+    modalImg.style.borderRadius = '19px'; // Match small card radius
+
+    // 6. Force the browser to register the starting position
+    void modalImg.offsetWidth; 
+
+    // 7. Fade in the dark background, then fly the image to the center
     modal.classList.add("active");
+    
+    modalImg.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.6s ease';
+    modalImg.style.transform = 'translate(0, 0) scale(1)';
+    modalImg.style.borderRadius = '22px'; // Return to large radius
 
     document.body.style.overflow = "hidden";
 }
 
 function closeMemory() {
     const modal = document.getElementById("memoryModal");
-
     modal.classList.remove("active");
-
     document.body.style.overflow = "";
 }
 
-  /* ================================
-       MEMORY POPUP EVENT LISTENERS
-    ================================ */
+/* ================================
+   MEMORY POPUP EVENT LISTENERS
+================================ */
 
-    const memoryArticles = document.querySelectorAll('.memory');
+const memoryArticles = document.querySelectorAll('.memory');
 
-    memoryArticles.forEach((article, index) => {
-        article.addEventListener('click', () => {
-            openMemory(index);
-        });
+// Pass the clicked article into the function so it knows where to animate from
+memoryArticles.forEach((article, index) => {
+    article.addEventListener('click', () => {
+        openMemory(index, article); 
     });
+});
 
-    const memoryOverlay = document.querySelector('.memory-overlay');
-    const memoryCloseBtn = document.querySelector('.memory-close');
+const memoryOverlay = document.querySelector('.memory-overlay');
+const memoryCloseBtn = document.querySelector('.memory-close');
 
-    if (memoryOverlay) {
-        memoryOverlay.addEventListener('click', closeMemory);
-    }
+if (memoryOverlay) {
+    memoryOverlay.addEventListener('click', closeMemory);
+}
 
-    if (memoryCloseBtn) {
-        memoryCloseBtn.addEventListener('click', closeMemory);
-    }
+if (memoryCloseBtn) {
+    memoryCloseBtn.addEventListener('click', closeMemory);
+}
+
 
   /* =========================
      SCREEN NAVIGATION
