@@ -82,6 +82,29 @@ function closeMemory() {
     document.body.style.overflow = "";
 }
 
+  /* ================================
+       MEMORY POPUP EVENT LISTENERS
+    ================================ */
+
+    const memoryArticles = document.querySelectorAll('.memory');
+
+    memoryArticles.forEach((article, index) => {
+        article.addEventListener('click', () => {
+            openMemory(index);
+        });
+    });
+
+    const memoryOverlay = document.querySelector('.memory-overlay');
+    const memoryCloseBtn = document.querySelector('.memory-close');
+
+    if (memoryOverlay) {
+        memoryOverlay.addEventListener('click', closeMemory);
+    }
+
+    if (memoryCloseBtn) {
+        memoryCloseBtn.addEventListener('click', closeMemory);
+    }
+
   /* =========================
      SCREEN NAVIGATION
   ========================== */
