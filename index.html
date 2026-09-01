@@ -14,6 +14,18 @@
 
   <link rel="stylesheet" href="style.css">
 </head>
+  <!-- Memory Photo Popup -->
+<div class="memory-modal" id="memoryModal">
+    <div class="memory-overlay" onclick="closeMemory()"></div>
+
+    <div class="memory-popup">
+        <button class="memory-close" onclick="closeMemory()">×</button>
+
+        <img id="memoryPopupImage" src="" alt="Memory">
+
+        <p id="memoryPopupText"></p>
+    </div>
+</div>
 
 <body>
   <div class="ambient ambient-one" aria-hidden="true"></div>
