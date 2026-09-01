@@ -41,100 +41,65 @@ document.addEventListener("DOMContentLoaded", () => {
     "Okay, you're making this difficult now. 😭❤️"
   ];
   /* ================================
-   MEMORY PHOTO POPUP
-================================ */
+     MEMORY PHOTO POPUP
+  ================================ */
 
-const memoryData = [
-    {
-        image: "images/memory1.jpg",
-        text: "Some moments are meant to stay with us forever. ❤️"
-    },
+  const memoryData = [
+      {
+          image: "images/memory1.jpg",
+          text: "Some moments are meant to stay with us forever. ❤️"
+      },
+      {
+          image: "images/memory2.jpg",
+          text: "A little memory that I will always keep close. 🫶🏻"
+      },
+      {
+          image: "images/memory3.jpg",
+          text: "One of those moments that makes me smile every time. ❤️"
+      }
+  ];
 
-    {
-        image: "images/memory2.jpg",
-        text: "A little memory that I will always keep close. 🫶🏻"
-    },
+  function openMemory(index) {
+      const modal = document.getElementById("memoryModal");
+      const modalImg = document.getElementById("memoryPopupImage");
+      const text = document.getElementById("memoryPopupText");
 
-    {
-        image: "images/memory3.jpg",
-        text: "One of those moments that makes me smile every time. ❤️"
-    }
-];
+      modalImg.src = memoryData[index].image;
+      text.textContent = memoryData[index].text;
 
-/* ================================
-   MEMORY PHOTO POPUP
-================================ */
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+  }
 
-function openMemory(index, cardElement) {
-    const modal = document.getElementById("memoryModal");
-    const modalImg = document.getElementById("memoryPopupImage");
-    const text = document.getElementById("memoryPopupText");
+  function closeMemory() {
+      const modal = document.getElementById("memoryModal");
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+  }
 
-    // 1. Find the small image that was clicked
-    const thumbImg = cardElement.querySelector('.memory-thumb');
+  /* ================================
+     MEMORY POPUP EVENT LISTENERS
+  ================================ */
 
-    // 2. Load the correct data
-    modalImg.src = memoryData[index].image;
-    text.textContent = memoryData[index].text;
+  const memoryArticles = document.querySelectorAll('.memory');
 
-    // 3. Get exact screen positions of both images
-    const startRect = thumbImg.getBoundingClientRect();
-    const finalRect = modalImg.getBoundingClientRect();
+  memoryArticles.forEach((article, index) => {
+      article.addEventListener('click', () => {
+          openMemory(index); 
+      });
+  });
 
-    // 4. Calculate the distance and scale difference
-    const scaleX = startRect.width / finalRect.width;
-    const scaleY = startRect.height / finalRect.height;
-    const translateX = startRect.left - finalRect.left;
-    const translateY = startRect.top - finalRect.top;
+  const memoryOverlay = document.querySelector('.memory-overlay');
+  const memoryCloseBtn = document.querySelector('.memory-close');
 
-    // 5. Instantly shrink and move the large image to sit on top of the small one
-    modalImg.style.transition = 'none';
-    modalImg.style.transformOrigin = 'top left';
-    modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
-    modalImg.style.borderRadius = '19px'; // Match small card radius
+  if (memoryOverlay) {
+      memoryOverlay.addEventListener('click', closeMemory);
+  }
 
-    // 6. Force the browser to register the starting position
-    void modalImg.offsetWidth; 
+  if (memoryCloseBtn) {
+      memoryCloseBtn.addEventListener('click', closeMemory);
+  }
 
-    // 7. Fade in the dark background, then fly the image to the center
-    modal.classList.add("active");
-    
-    modalImg.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.6s ease';
-    modalImg.style.transform = 'translate(0, 0) scale(1)';
-    modalImg.style.borderRadius = '22px'; // Return to large radius
-
-    document.body.style.overflow = "hidden";
-}
-
-function closeMemory() {
-    const modal = document.getElementById("memoryModal");
-    modal.classList.remove("active");
-    document.body.style.overflow = "";
-}
-
-/* ================================
-   MEMORY POPUP EVENT LISTENERS
-================================ */
-
-const memoryArticles = document.querySelectorAll('.memory');
-
-// Pass the clicked article into the function so it knows where to animate from
-memoryArticles.forEach((article, index) => {
-    article.addEventListener('click', () => {
-        openMemory(index, article); 
-    });
-});
-
-const memoryOverlay = document.querySelector('.memory-overlay');
-const memoryCloseBtn = document.querySelector('.memory-close');
-
-if (memoryOverlay) {
-    memoryOverlay.addEventListener('click', closeMemory);
-}
-
-if (memoryCloseBtn) {
-    memoryCloseBtn.addEventListener('click', closeMemory);
-}
 
 
   /* =========================
