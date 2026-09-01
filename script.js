@@ -47,15 +47,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const memoryData = [
       {
           image: "images/memory1.jpg",
-          text: "Some moments are meant to stay with us forever. ❤️"
+          text: "Nothing went according to our first-date plan 😂..
+But somehow, everything turned out even better. Maybe that was God’s plan... ❤️ 
+And that beautiful purple sky? It made our already-perfect date even more magical. 💜✨"
       },
       {
           image: "images/memory2.jpg",
-          text: "A little memory that I will always keep close. 🫶🏻"
+          text: "Memory 2
+We went to a little cafe, had some Maggi and snacks that somehow tasted even better with you beside me...❤️
+It felt good in every way...and then you gifted me a chocolate, making the moment even sweeter 😗🍫✨"
       },
       {
           image: "images/memory3.jpg",
-          text: "One of those moments that makes me smile every time. ❤️"
+          text: "Memory 3
+Our first long trip together, away to the beaches… 🌊❤️ 
+We stayed, explored, laughed, and did some things uk 😂...
+Everything just felt different there mmore peaceful, more intimate, 
+  and somehow so much better with you beside me. ✨"
       }
   ];
 
