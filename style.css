@@ -62,19 +62,34 @@ input:focus-visible {
   outline: 3px solid rgba(255, 95, 143, 0.28);
   outline-offset: 3px;
 }
+.memory-thumb {
+  width: 100%;
+  height: 165px;
+  object-fit: cover;
+  border-radius: 19px;
+  margin-bottom: 17px;
+  display: block;
+}
+
 .memory-modal {
     position: fixed;
     inset: 0;
-    display: none;
+    display: flex; /* Changed from display: none */
     align-items: center;
     justify-content: center;
     z-index: 99999;
     padding: 20px;
+    opacity: 0; /* Hidden visually */
+    pointer-events: none; /* Prevents clicks while hidden */
+    transition: opacity 0.4s ease;
 }
 
+
 .memory-modal.active {
-    display: flex;
+    opacity: 1;
+    pointer-events: auto;
 }
+
 
 .memory-overlay {
     position: absolute;
@@ -89,7 +104,7 @@ input:focus-visible {
     z-index: 2;
     width: min(90vw, 420px);
     text-align: center;
-    animation: memoryPopupIn 0.35s ease;
+    /* Removed the old animation: memoryPopupIn line */
 }
 
 .memory-popup img {
@@ -509,153 +524,6 @@ em {
 
 .memory-two:hover {
   transform: translateY(-7px) rotate(1deg);
-}
-
-.memory-art {
-  position: relative;
-  height: 165px;
-  margin-bottom: 17px;
-  overflow: hidden;
-  border-radius: 19px;
-}
-
-.art-one {
-  background:
-    radial-gradient(circle at 75% 22%, rgba(255,255,255,.9) 0 5%, transparent 6%),
-    linear-gradient(155deg, #ffd7e4, #e8ddff);
-}
-
-.art-sun {
-  position: absolute;
-  width: 62px;
-  height: 62px;
-  top: 25px;
-  right: 27px;
-  border-radius: 50%;
-  background: #ffb27d;
-  box-shadow: 0 0 0 10px rgba(255,178,125,.12);
-}
-
-.art-window {
-  position: absolute;
-  width: 115px;
-  height: 125px;
-  left: 24px;
-  bottom: -17px;
-  border: 9px solid rgba(255,255,255,.72);
-  border-bottom: 0;
-  border-radius: 14px 14px 0 0;
-  background:
-    linear-gradient(90deg, transparent 48%, rgba(255,255,255,.62) 49% 53%, transparent 54%),
-    linear-gradient(180deg, transparent 47%, rgba(255,255,255,.62) 48% 53%, transparent 54%),
-    linear-gradient(145deg, #ffc4d8, #c6b7ff);
-}
-
-.art-spark {
-  position: absolute;
-  right: 28px;
-  bottom: 28px;
-  color: rgba(255,255,255,.92);
-  font-size: 1.7rem;
-}
-
-.art-two {
-  background:
-    radial-gradient(circle at 25% 28%, rgba(255,255,255,.8), transparent 8%),
-    linear-gradient(145deg, #ffe0e9, #d9ceff);
-}
-
-.art-orbit {
-  position: absolute;
-  width: 116px;
-  height: 116px;
-  left: 50%;
-  top: 50%;
-  border: 2px solid rgba(255,255,255,.72);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) rotate(-18deg);
-}
-
-.art-orbit::after {
-  content: "";
-  position: absolute;
-  inset: 17px -11px;
-  border: 2px solid rgba(255,255,255,.5);
-  border-radius: 50%;
-  transform: rotate(64deg);
-}
-
-.art-heart {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: #fff;
-  font-size: 3rem;
-  filter: drop-shadow(0 10px 15px rgba(180,75,115,.2));
-}
-
-.art-star {
-  position: absolute;
-  color: #fff;
-  opacity: .9;
-}
-
-.star-a { top: 23px; left: 28px; }
-.star-b { right: 28px; bottom: 25px; }
-
-.art-three {
-  background:
-    linear-gradient(180deg, #8d7fb9 0%, #a99cd0 48%, #d6a7bd 100%);
-}
-
-.moon {
-  position: absolute;
-  width: 58px;
-  height: 58px;
-  top: 25px;
-  right: 35px;
-  border-radius: 50%;
-  background: #fff5d6;
-  box-shadow: 0 0 30px rgba(255,245,214,.35);
-}
-
-.moon::after {
-  content: "";
-  position: absolute;
-  width: 58px;
-  height: 58px;
-  left: -14px;
-  top: -7px;
-  border-radius: 50%;
-  background: #a18fbd;
-}
-
-.cloud {
-  position: absolute;
-  height: 14px;
-  border-radius: 99px;
-  background: rgba(255,255,255,.25);
-}
-
-.cloud::before,
-.cloud::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  background: inherit;
-}
-
-.cloud::before { width: 28px; height: 28px; left: 15px; bottom: 2px; }
-.cloud::after { width: 20px; height: 20px; left: 37px; bottom: 0; }
-
-.cloud-a { width: 82px; left: 20px; bottom: 42px; }
-.cloud-b { width: 66px; right: 24px; bottom: 23px; opacity: .7; }
-
-.star-c {
-  top: 30px;
-  left: 30px;
-  color: #fff5d6;
 }
 
 .memory-number {
