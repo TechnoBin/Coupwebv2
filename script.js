@@ -40,6 +40,47 @@ document.addEventListener("DOMContentLoaded", () => {
     "You know the correct answer. 👀",
     "Okay, you're making this difficult now. 😭❤️"
   ];
+  /* ================================
+   MEMORY PHOTO POPUP
+================================ */
+
+const memoryData = [
+    {
+        image: "images/memory1.jpg",
+        text: "Some moments are meant to stay with us forever. ❤️"
+    },
+
+    {
+        image: "images/memory2.jpg",
+        text: "A little memory that I will always keep close. 🫶🏻"
+    },
+
+    {
+        image: "images/memory3.jpg",
+        text: "One of those moments that makes me smile every time. ❤️"
+    }
+];
+
+function openMemory(index) {
+    const modal = document.getElementById("memoryModal");
+    const image = document.getElementById("memoryPopupImage");
+    const text = document.getElementById("memoryPopupText");
+
+    image.src = memoryData[index].image;
+    text.textContent = memoryData[index].text;
+
+    modal.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+}
+
+function closeMemory() {
+    const modal = document.getElementById("memoryModal");
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+}
 
   /* =========================
      SCREEN NAVIGATION
