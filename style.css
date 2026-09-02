@@ -983,6 +983,12 @@ em {
     font-size: var(--size);
     opacity: 0;
 
+    color: var(--heart-color);
+
+    text-shadow:
+        0 0 8px var(--heart-color),
+        0 0 14px var(--heart-color);
+
     animation: surpriseHeartFlow var(--duration) ease-in-out forwards;
 }
 
