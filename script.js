@@ -126,24 +126,60 @@ function showScreen(id) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     // --- Background Music Logic ---
-    const bgMusic = document.getElementById("bgMusic");
-    if (!bgMusic) return;
+   // --- Background Music Logic ---
+const bgMusic = document.getElementById("bgMusic");
+const finalMusic = document.getElementById("finalMusic");
 
-    // Cancel any previous fade
-    if (fadeInterval) {
-        clearInterval(fadeInterval);
-        fadeInterval = null;
+// Cancel any previous fade
+if (fadeInterval) {
+    clearInterval(fadeInterval);
+    fadeInterval = null;
+}
+
+if (id === "memories") {
+
+    // Stop final song
+    if (finalMusic) {
+        finalMusic.pause();
+        finalMusic.currentTime = 0;
     }
 
-    if (id === "memories") {
+    // Play memory song
+    if (bgMusic) {
         bgMusic.volume = 1.0;
 
         bgMusic.play().catch((error) => {
-            console.log("Audio playback prevented or file missing:", error);
+            console.log("Memory music playback prevented:", error);
         });
+    }
 
-    } else {
+} else if (id === "message") {
+
+    // Stop memory song
+    if (bgMusic) {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+    }
+
+    // Play final song
+    if (finalMusic) {
+        finalMusic.volume = 1.0;
+
+        finalMusic.play().catch((error) => {
+            console.log("Final music playback prevented:", error);
+        });
+    }
+
+} else {
+
+    // Stop both songs on other screens
+    if (bgMusic) {
         fadeAudioOut(bgMusic);
+    }
+
+    if (finalMusic) {
+        finalMusic.pause();
+        finalMusic.currentTime = 0;
     }
 }
 
