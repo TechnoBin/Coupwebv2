@@ -963,3 +963,49 @@ em {
         transform: scale(1);
     }
 }
+/* =================================
+   SURPRISE - MINIMAL HEART FLOW
+================================= */
+
+.surprise-heart-flow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9998;
+}
+
+.surprise-floating-heart {
+    position: absolute;
+    bottom: -30px;
+    left: var(--left);
+
+    font-size: var(--size);
+    opacity: 0;
+
+    animation: surpriseHeartFlow var(--duration) ease-in-out forwards;
+}
+
+@keyframes surpriseHeartFlow {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.7) rotate(0deg);
+    }
+
+    15% {
+        opacity: 0.45;
+    }
+
+    70% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translateY(-105vh)
+            translateX(var(--drift))
+            scale(1)
+            rotate(18deg);
+    }
+}
