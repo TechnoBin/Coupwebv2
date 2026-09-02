@@ -523,7 +523,7 @@ heart.style.setProperty(
 
         heart.style.setProperty(
             "--size",
-            `${10 + Math.random() * 9}px`
+            `${14 + Math.random() * 10}px`
         );
 
         heart.style.setProperty(
