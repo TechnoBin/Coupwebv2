@@ -899,3 +899,67 @@ em {
     transition-duration: .01ms !important;
   }
 }
+/* =================================
+   MEMORY POPUP TEXT ANIMATION
+================================= */
+
+.memory-popup-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Memory text starts hidden */
+.memory-popup-card p {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(6px);
+}
+
+/* Text reveal animation */
+@keyframes memoryTextReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(22px);
+        filter: blur(6px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+/* Very subtle floating effect after reveal */
+@keyframes memoryTextFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+
+/* =================================
+   MEMORY POPUP IMAGE ANIMATION
+================================= */
+
+.memory-popup-card img {
+    opacity: 0;
+    transform: scale(0.94);
+}
+
+@keyframes memoryImageReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.94);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
