@@ -182,7 +182,7 @@ if (id === "memories") {
         finalMusic.currentTime = 0;
     }
 }
-
+}
 function fadeAudioOut(audioElem) {
     if (audioElem.paused) return;
 
