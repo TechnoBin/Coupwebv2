@@ -170,6 +170,17 @@ function fadeAudioOut(audioElem) {
     }, 50);
 }
 
+  
+  /* =========================
+     NEXT BUTTONS
+  ========================== */
+
+  document.querySelectorAll("[data-next]").forEach((button) => {
+    button.addEventListener("click", () => {
+      showScreen(button.dataset.next);
+    });
+  });
+  
   /* =========================
      PASSWORD
   ========================== */
