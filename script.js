@@ -503,6 +503,18 @@ function startSurpriseHeartFlow() {
 
         heart.textContent =
             symbols[Math.floor(Math.random() * symbols.length)];
+      const colors = [
+    "#ff4f81",
+    "#ff6b9a",
+    "#ff85ad",
+    "#e94f8a",
+    "#ffb3c6"
+];
+
+heart.style.setProperty(
+    "--heart-color",
+    colors[Math.floor(Math.random() * colors.length)]
+);
 
         heart.style.setProperty(
             "--left",
@@ -537,7 +549,7 @@ function startSurpriseHeartFlow() {
     // Then only ONE small heart every few seconds
     surpriseHeartInterval = setInterval(() => {
         createSmallHeart();
-    }, 3200);
+    }, 2200);
 }
 
   /* =========================
