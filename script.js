@@ -49,21 +49,24 @@ let fadeInterval = null;
   const memoryData = [
       {
           image: "images/memory1.jpg",
-          text: `Nothing went according to our first-date plan 😂..
-But somehow, everything turned out even better. Maybe that was God’s plan... ❤️ 
-And that beautiful purple sky? It made our already-perfect date even more magical. 💜✨`
+          text: `Nothing really went according to our first-date plan 😂
+But somehow, it all turned out even better than we imagined. Maybe that was God’s plan after all. ❤️
+
+And that beautiful purple sky… it just made an already perfect date feel even more magical. 💜✨`
       },
       {
           image: "images/memory2.jpg",
-          text: `We went to a little cafe, had some Maggi and snacks that somehow tasted even better with you beside me...❤️
-It felt good in every way...and then you gifted me a chocolate, making the moment even sweeter 😗🍫✨`
+          text: `We went to this little cafe, had some Maggi and snacks, and somehow everything tasted better just because you were there with me. ❤️
+
+It just felt so good being there with you... and then you gave me that chocolate, making an already sweet moment even sweeter. 😗🍫✨`
       },
       {
           image: "images/memory3.jpg",
-          text: `Our first long trip together, away to the beaches… 🌊❤️ 
-We stayed, explored, laughed, and did some things uk 😂...
-Everything just felt different there mmore peaceful, more intimate, 
-  and somehow so much better with you beside me. ✨`
+          text: `Our first long trip together, away to the beaches… 🌊❤️
+
+We stayed, explored, laughed, and did some things uk 😂... Everything just felt different there more peaceful, more intimate, and honestly, just better with you beside me. ✨
+
+And remember that eye filter that was somehow only working on me? 😂 I still remember how funny that was. Such a small and random moment, but I still smile whenever I think about it. ❤️`
       }
   ];
 
