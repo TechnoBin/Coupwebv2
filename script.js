@@ -71,16 +71,34 @@ And remember that eye filter that was somehow only working on me? 😂 I still r
   ];
 
   function openMemory(index) {
-      const modal = document.getElementById("memoryModal");
-      const modalImg = document.getElementById("memoryPopupImage");
-      const text = document.getElementById("memoryPopupText");
+    const modal = document.getElementById("memoryModal");
+    const modalImg = document.getElementById("memoryPopupImage");
+    const text = document.getElementById("memoryPopupText");
 
-      modalImg.src = memoryData[index].image;
-      text.textContent = memoryData[index].text;
+    // Reset animations
+    modalImg.style.animation = "none";
+    text.style.animation = "none";
 
-      modal.classList.add("active");
-      document.body.style.overflow = "hidden";
-  }
+    // Force animation restart
+    void modalImg.offsetWidth;
+    void text.offsetWidth;
+
+    // Set memory content
+    modalImg.src = memoryData[index].image;
+    text.textContent = memoryData[index].text;
+
+    // Start image animation
+    modalImg.style.animation =
+        "memoryImageReveal 0.7s cubic-bezier(.22, 1, .36, 1) forwards";
+
+    // Start text animation
+    text.style.animation =
+        "memoryTextReveal 0.9s cubic-bezier(.22, 1, .36, 1) 0.25s forwards, " +
+        "memoryTextFloat 4s ease-in-out 1.4s infinite";
+
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+}
 
   function closeMemory() {
       const modal = document.getElementById("memoryModal");
