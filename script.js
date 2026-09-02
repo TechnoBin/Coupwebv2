@@ -30,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let teaseIndex = 0;
   let toastTimer = null;
   let noMoveCount = 0;
+  
+let fadeInterval = null;
 
   const teaseMessages = [
     "Nice try. 😭",
@@ -108,25 +110,65 @@ Everything just felt different there mmore peaceful, more intimate,
 
 
 
-  /* =========================
-     SCREEN NAVIGATION
-  ========================== */
-  function showScreen(id) {
+/* =========================
+   SCREEN NAVIGATION & MUSIC
+========================== */
+
+
+function showScreen(id) {
     const target = document.getElementById(id);
     if (!target) return;
 
     screens.forEach((screen) => {
-      screen.classList.toggle("active", screen === target);
+        screen.classList.toggle("active", screen === target);
     });
 
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
-  document.querySelectorAll("[data-next]").forEach((button) => {
-    button.addEventListener("click", () => {
-      showScreen(button.dataset.next);
-    });
-  });
+    // --- Background Music Logic ---
+    const bgMusic = document.getElementById("bgMusic");
+    if (!bgMusic) return;
+
+    // Cancel any previous fade
+    if (fadeInterval) {
+        clearInterval(fadeInterval);
+        fadeInterval = null;
+    }
+
+    if (id === "memories") {
+        bgMusic.volume = 1.0;
+
+        bgMusic.play().catch((error) => {
+            console.log("Audio playback prevented or file missing:", error);
+        });
+
+    } else {
+        fadeAudioOut(bgMusic);
+    }
+}
+
+function fadeAudioOut(audioElem) {
+    if (audioElem.paused) return;
+
+    let volume = audioElem.volume;
+
+    fadeInterval = setInterval(() => {
+        volume -= 0.1;
+
+        if (volume <= 0) {
+            audioElem.volume = 0;
+            audioElem.pause();
+            audioElem.currentTime = 0;
+
+            clearInterval(fadeInterval);
+            fadeInterval = null;
+
+            return;
+        }
+
+        audioElem.volume = volume;
+    }, 50);
+}
 
   /* =========================
      PASSWORD
