@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const toast = document.getElementById("toast");
   const confettiLayer = document.getElementById("confettiLayer");
   const bgHearts = document.querySelector(".bg-hearts");
-
+  
+let surpriseHeartInterval = null;
   let teaseIndex = 0;
   let toastTimer = null;
   let noMoveCount = 0;
@@ -361,6 +362,10 @@ function fadeAudioOut(audioElem) {
     surpriseBtn.style.opacity = "0.72";
 
     createConfetti();
+
+    // Start subtle continuous hearts
+    startSurpriseHeartFlow();
+    
     showToast("Surprise unlocked 💖");
   });
 
@@ -368,6 +373,16 @@ function fadeAudioOut(audioElem) {
      RESTART
   ========================== */
   restartBtn.addEventListener("click", () => {
+    if (surpriseHeartInterval) {
+    clearInterval(surpriseHeartInterval);
+    surpriseHeartInterval = null;
+}
+
+const heartFlow = document.getElementById("surpriseHeartFlow");
+
+if (heartFlow) {
+    heartFlow.remove();
+}
     passwordInput.value = "";
     setPasswordMessage("Hint: it's something only we know. ❤️");
 
@@ -466,6 +481,64 @@ function fadeAudioOut(audioElem) {
       confettiLayer.replaceChildren();
     }, 2700);
   }
+  /* =========================
+   SURPRISE HEART FLOW
+========================= */
+
+function startSurpriseHeartFlow() {
+    if (surpriseHeartInterval) return;
+
+    const layer = document.createElement("div");
+    layer.className = "surprise-heart-flow";
+    layer.id = "surpriseHeartFlow";
+
+    document.body.appendChild(layer);
+
+    function createSmallHeart() {
+        const heart = document.createElement("span");
+
+        heart.className = "surprise-floating-heart";
+
+        const symbols = ["♡", "♥", "❤"];
+
+        heart.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        heart.style.setProperty(
+            "--left",
+            `${10 + Math.random() * 80}%`
+        );
+
+        heart.style.setProperty(
+            "--size",
+            `${10 + Math.random() * 9}px`
+        );
+
+        heart.style.setProperty(
+            "--duration",
+            `${7 + Math.random() * 5}s`
+        );
+
+        heart.style.setProperty(
+            "--drift",
+            `${-25 + Math.random() * 50}px`
+        );
+
+        layer.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 13000);
+    }
+
+    // First heart after a short delay
+    setTimeout(createSmallHeart, 1200);
+
+    // Then only ONE small heart every few seconds
+    surpriseHeartInterval = setInterval(() => {
+        createSmallHeart();
+    }, 3200);
+}
 
   /* =========================
      INITIALIZE
