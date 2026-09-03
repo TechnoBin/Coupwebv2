@@ -50,7 +50,7 @@ let fadeInterval = null;
   const memoryData = [
       {
           image: "images/memory1.jpg",
-          text: `Nothing really went according to our first-date plan 😂
+          text: `Nothing really went according to our first date plan 😂
 But somehow, it all turned out even better than we imagined. Maybe that was God’s plan after all. ❤️
 
 And that beautiful purple sky… it just made an already perfect date feel even more magical. 💜✨`
@@ -64,10 +64,9 @@ It just felt so good being there with you... and then you gave me that chocolate
       {
           image: "images/memory3.jpg",
           text: `Our first long trip together, away to the beaches… 🌊❤️
+We explored, laughed, stayed up, and did some things uk 😂... Everything just felt so much better with you beside me. ✨
 
-We stayed, explored, laughed, and did some things uk 😂... Everything just felt different there more peaceful, more intimate, and honestly, just better with you beside me. ✨
-
-And remember that eye filter that was somehow only working on me? 😂 I still remember how funny that was. Such a small and random moment, but I still smile whenever I think about it. ❤️`
+And remember that eye filter that somehow only worked on me? 😂 Still one of those random moments I love remembering. ❤️`
       }
   ];
 
