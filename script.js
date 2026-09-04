@@ -377,24 +377,32 @@ function fadeAudioOut(audioElem) {
     surpriseHeartInterval = null;
 }
   /* =========================
-     ANDROID / BROWSER BACK
+     BACK BUTTON
   ========================== */
 
-  window.addEventListener("popstate", () => {
+  function handleBackButton() {
     const memoryModal = document.getElementById("memoryModal");
 
-    // If memory popup is open, Back behaves like the × button.
+    // Memory popup → behave exactly like the × button
     if (memoryModal && memoryModal.classList.contains("active")) {
       closeMemory();
+
+      // Keep the website inside its history state
+      history.pushState({ coupweb: true }, "", window.location.href);
       return;
     }
 
-    // On every other screen, restart the experience.
+    // Any other screen → restart the experience
     restartBtn.click();
-  });
 
-  // Create one history entry so the first Back press can be intercepted.
-  history.pushState({ coupweb: true }, "");
+    // Keep Back inside the website
+    history.pushState({ coupweb: true }, "", window.location.href);
+  }
+
+  // Create an internal history entry
+  history.pushState({ coupweb: true }, "", window.location.href);
+
+  window.addEventListener("popstate", handleBackButton);
     
 const heartFlow = document.getElementById("surpriseHeartFlow");
 
