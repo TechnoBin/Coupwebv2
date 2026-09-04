@@ -1595,9 +1595,9 @@ em {
             11px
             15px;
 
-        font-size: 22px;
+        font-size: 19px;
 
-        line-height: 1.55;
+        line-height: 1.38;
     }
 
     .memory-close {
@@ -1625,7 +1625,8 @@ em {
             8px
             13px;
 
-        font-size: 20px;
+        font-size: 18px;
+       line-height: 1.36;
     }
 
     .memory-popup-card img {
