@@ -128,8 +128,14 @@ input:focus-visible {
     height: auto;
     max-height: 65vh;
     object-fit: contain;
-    border-radius: 22px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(80, 30, 60, 0.14);
+
+    position: relative;
+    z-index: 1;
 }
 
 .memory-popup-card p {
