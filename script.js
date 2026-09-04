@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      ELEMENTS
   ========================== */
+  // Auto scroll jump ko rokne ke liye
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+let savedScrollY = 0; // Scroll position hold karne ke liye variable
+  
   const screens = document.querySelectorAll(".screen");
   const passwordForm = document.getElementById("passwordForm");
   const passwordInput = document.getElementById("passwordInput");
@@ -72,11 +78,12 @@ And remember that eye filter that somehow only worked on me? 😂 Still one of t
   ];
 
   function openMemory(index) {
-    memoryScrollY = window.scrollY;
     const modal = document.getElementById("memoryModal");
     const modalImg = document.getElementById("memoryPopupImage");
     const text = document.getElementById("memoryPopupText");
-
+      // 1. Current Scroll Position Save karo (Top par add karein)
+  savedScrollY = window.scrollY || window.pageYOffset;
+    
     // Reset animations
     modalImg.style.animation = "none";
     text.style.animation = "none";
@@ -100,14 +107,29 @@ And remember that eye filter that somehow only worked on me? 😂 Still one of t
 
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+      // 2. History state push karo (Function ke last me add karein)
+  history.pushState({ modalOpen: true }, "", window.location.href);
+  }
+
+  function closeMemory(fromPopState = false) {
+  const modal = document.getElementById("memoryModal");
+  if (!modal || !modal.classList.contains("active")) return;
+
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+
+  // Smooth scroll restoration
+  requestAnimationFrame(() => {
+    window.scrollTo(0, savedScrollY);
+  });
+
+  // Agar Cross (×) button se close hua hai, toh history balance karo
+  if (!fromPopState && history.state && history.state.modalOpen) {
+    history.back();
+  }
 }
 
-  function closeMemory() {
-      const modal = document.getElementById("memoryModal");
-      modal.classList.remove("active");
-      document.body.style.overflow = "";
-    window.scrollTo({ top: memoryScrollY, behavior: "instant" });
-  }
 
   /* ================================
      MEMORY POPUP EVENT LISTENERS
@@ -123,14 +145,14 @@ And remember that eye filter that somehow only worked on me? 😂 Still one of t
 
   const memoryOverlay = document.querySelector('.memory-overlay');
   const memoryCloseBtn = document.querySelector('.memory-close');
+if (memoryOverlay) {
+  memoryOverlay.addEventListener("click", () => closeMemory(false));
+}
 
-  if (memoryOverlay) {
-      memoryOverlay.addEventListener('click', closeMemory);
-  }
+if (memoryCloseBtn) {
+  memoryCloseBtn.addEventListener("click", () => closeMemory(false));
+}
 
-  if (memoryCloseBtn) {
-      memoryCloseBtn.addEventListener('click', closeMemory);
-  }
 
 
 
@@ -406,33 +428,21 @@ if (heartFlow) {
     showScreen("passwordScreen");
     setTimeout(() => passwordInput.focus(), 250);
   });
+    
     /* =========================
-     BACK BUTTON
+     BACK BUTTON HANDLING
   ========================== */
+  history.replaceState({ coupweb: true }, "", window.location.href);
 
-  function handleBackButton() {
+  window.addEventListener("popstate", () => {
     const memoryModal = document.getElementById("memoryModal");
 
-    // Memory popup → behave exactly like the × button
+    // Agar popup khula hai, toh bas popup close karo aur scroll restore hone do
     if (memoryModal && memoryModal.classList.contains("active")) {
-      closeMemory();
-
-      // Keep the website inside its history state
-      history.pushState({ coupweb: true }, "", window.location.href);
-      return;
+      closeMemory(true); // 'true' batata hai ki browser ka back button daba hai
     }
+  });
 
-    // Any other screen → restart the experience
-    restartBtn.click();
-
-    // Keep Back inside the website
-    history.pushState({ coupweb: true }, "", window.location.href);
-  }
-
-  // Create an internal history entry
-  history.pushState({ coupweb: true }, "", window.location.href);
-
-  window.addEventListener("popstate", handleBackButton);
     
 
   /* =========================
