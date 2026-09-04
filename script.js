@@ -376,7 +376,26 @@ function fadeAudioOut(audioElem) {
     clearInterval(surpriseHeartInterval);
     surpriseHeartInterval = null;
 }
+  /* =========================
+     ANDROID / BROWSER BACK
+  ========================== */
 
+  window.addEventListener("popstate", () => {
+    const memoryModal = document.getElementById("memoryModal");
+
+    // If memory popup is open, Back behaves like the × button.
+    if (memoryModal && memoryModal.classList.contains("active")) {
+      closeMemory();
+      return;
+    }
+
+    // On every other screen, restart the experience.
+    restartBtn.click();
+  });
+
+  // Create one history entry so the first Back press can be intercepted.
+  history.pushState({ coupweb: true }, "");
+    
 const heartFlow = document.getElementById("surpriseHeartFlow");
 
 if (heartFlow) {
