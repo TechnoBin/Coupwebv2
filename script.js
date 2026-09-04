@@ -33,6 +33,7 @@ let surpriseHeartInterval = null;
   let noMoveCount = 0;
   
 let fadeInterval = null;
+  let memoryScrollY = 0;
 
   const teaseMessages = [
     "Nice try. 😭",
@@ -71,6 +72,7 @@ And remember that eye filter that somehow only worked on me? 😂 Still one of t
   ];
 
   function openMemory(index) {
+    memoryScrollY = window.scrollY;
     const modal = document.getElementById("memoryModal");
     const modalImg = document.getElementById("memoryPopupImage");
     const text = document.getElementById("memoryPopupText");
@@ -104,6 +106,7 @@ And remember that eye filter that somehow only worked on me? 😂 Still one of t
       const modal = document.getElementById("memoryModal");
       modal.classList.remove("active");
       document.body.style.overflow = "";
+    window.scrollTo({ top: memoryScrollY, behavior: "instant" });
   }
 
   /* ================================
