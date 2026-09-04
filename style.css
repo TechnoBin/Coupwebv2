@@ -125,10 +125,11 @@ input:focus-visible {
 .memory-popup-card img {
     display: block;
     width: 100%;
-    aspect-ratio: 4 / 3; /* Sets the exact 3:4 portrait ratio you want */
-    object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    height: auto;
+    max-height: 65vh;
+    object-fit: contain;
+    border-radius: 22px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
 }
 
 .memory-popup-card p {
