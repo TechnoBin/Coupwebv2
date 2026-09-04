@@ -1189,8 +1189,8 @@ em {
     color: #5a3045;
 
     font-family: "Parisienne", cursive;
-    font-size: 21px;
-    line-height: 1.7;
+    font-size: clamp(18px, 4.5vw, 20px);
+    line-height: 1.4;
 
     letter-spacing: 0.2px;
     text-align: center;
@@ -1240,8 +1240,8 @@ em {
     .memory-popup-card p {
         margin: 18px 10px 14px;
 
-        font-size: 21px;
-        line-height: 1.7;
+        font-size: clamp(18px, 4.5vw, 20px);
+        line-height: 1.4;
     }
 
     .memory-popup-card::before {
