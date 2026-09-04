@@ -1022,3 +1022,154 @@ em {
             rotate(18deg);
     }
 }
+
+/* =========================================
+   💕 ROMANTIC MEMORY CARD — FINAL DESIGN
+========================================= */
+
+.memory-popup-card {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 10% 10%,
+            rgba(255, 133, 173, 0.12),
+            transparent 28%),
+        radial-gradient(circle at 90% 85%,
+            rgba(180, 150, 255, 0.10),
+            transparent 30%),
+        linear-gradient(
+            145deg,
+            #fffafd 0%,
+            #fff7fb 50%,
+            #fffaff 100%
+        );
+
+    border: 1px solid rgba(255, 133, 173, 0.28);
+    border-radius: 24px;
+
+    padding: 10px;
+
+    box-shadow:
+        0 20px 60px rgba(80, 30, 60, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+
+/* -----------------------------------------
+   Decorative soft glow
+----------------------------------------- */
+
+.memory-popup-card::before {
+    content: "♡  ✦  ♡";
+
+    position: absolute;
+    top: 10px;
+    right: 15px;
+
+    font-family: "Playfair Display", serif;
+    font-size: 15px;
+    letter-spacing: 5px;
+
+    color: rgba(233, 79, 138, 0.32);
+
+    pointer-events: none;
+    z-index: 3;
+}
+
+.memory-popup-card::after {
+    content: "♡";
+
+    position: absolute;
+    bottom: 12px;
+    left: 15px;
+
+    font-size: 22px;
+
+    color: rgba(255, 107, 154, 0.25);
+
+    pointer-events: none;
+    z-index: 3;
+
+    transform: rotate(-12deg);
+}
+
+
+/* -----------------------------------------
+   Memory text
+----------------------------------------- */
+
+.memory-popup-card p {
+    position: relative;
+    z-index: 2;
+
+    margin: 20px 14px 16px;
+
+    color: #63394d;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 16px;
+    line-height: 1.75;
+
+    letter-spacing: 0.1px;
+
+    text-align: center;
+
+    text-wrap: balance;
+}
+
+
+/* -----------------------------------------
+   Tiny romantic divider
+----------------------------------------- */
+
+.memory-popup-card p::before {
+    content: "♡  ✦  ♡";
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 12px;
+    letter-spacing: 5px;
+
+    color: #e94f8a;
+
+    opacity: 0.65;
+}
+
+
+/* -----------------------------------------
+   Mobile refinement
+----------------------------------------- */
+
+@media (max-width: 480px) {
+
+    .memory-popup-card {
+        padding: 8px;
+        border-radius: 22px;
+    }
+
+    .memory-popup-card img {
+        border-radius: 17px;
+    }
+
+    .memory-popup-card p {
+        margin: 18px 10px 14px;
+
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .memory-popup-card::before {
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+
+    .memory-popup-card::after {
+        font-size: 18px;
+    }
+}
