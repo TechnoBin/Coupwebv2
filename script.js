@@ -376,7 +376,34 @@ function fadeAudioOut(audioElem) {
     clearInterval(surpriseHeartInterval);
     surpriseHeartInterval = null;
 }
-  /* =========================
+
+const heartFlow = document.getElementById("surpriseHeartFlow");
+
+if (heartFlow) {
+    heartFlow.remove();
+}
+    passwordInput.value = "";
+   setPasswordMessage("Hint: The sweetest name I used to call u..😗❤️");
+
+    surprise.classList.remove("show");
+    surprise.setAttribute("aria-hidden", "true");
+
+    surpriseBtn.querySelector("span").textContent = "Open your surprise";
+    surpriseBtn.querySelector("b").textContent = "💌";
+    surpriseBtn.disabled = false;
+    surpriseBtn.style.opacity = "1";
+
+    noBtn.style.position = "";
+    noBtn.style.left = "";
+    noBtn.style.top = "";
+    teaseText.textContent = "";
+    teaseIndex = 0;
+    noMoveCount = 0;
+
+    showScreen("passwordScreen");
+    setTimeout(() => passwordInput.focus(), 250);
+  });
+    /* =========================
      BACK BUTTON
   ========================== */
 
@@ -404,32 +431,6 @@ function fadeAudioOut(audioElem) {
 
   window.addEventListener("popstate", handleBackButton);
     
-const heartFlow = document.getElementById("surpriseHeartFlow");
-
-if (heartFlow) {
-    heartFlow.remove();
-}
-    passwordInput.value = "";
-   setPasswordMessage("Hint: The sweetest name I used to call u..😗❤️");
-
-    surprise.classList.remove("show");
-    surprise.setAttribute("aria-hidden", "true");
-
-    surpriseBtn.querySelector("span").textContent = "Open your surprise";
-    surpriseBtn.querySelector("b").textContent = "💌";
-    surpriseBtn.disabled = false;
-    surpriseBtn.style.opacity = "1";
-
-    noBtn.style.position = "";
-    noBtn.style.left = "";
-    noBtn.style.top = "";
-    teaseText.textContent = "";
-    teaseIndex = 0;
-    noMoveCount = 0;
-
-    showScreen("passwordScreen");
-    setTimeout(() => passwordInput.focus(), 250);
-  });
 
   /* =========================
      TOAST
