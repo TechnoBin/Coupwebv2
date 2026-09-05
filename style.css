@@ -1310,10 +1310,11 @@ em {
     font-style: italic;
     letter-spacing: -0.015em;
     line-height: 1.25;
+   color: #704356;
 }
 
 .memory p {
-    color: var(--muted);
+    color: #9a7181;
     font-family: "Playfair Display", Georgia, serif;
     font-size: 0.88rem;
     font-weight: 400;
