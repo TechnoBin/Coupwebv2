@@ -1339,3 +1339,21 @@ em {
     letter-spacing: 0.01em;
     color: #8f6878;
 }
+.final-card .letter {
+    max-width: 520px;
+    margin: 28px auto 18px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.02rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.9;
+    letter-spacing: 0.01em;
+    color: #765765;
+}
+.final-card .signature {
+    margin: 4px auto 30px;
+    font-family: "Parisienne", cursive;
+    font-size: 1.45rem;
+    font-weight: 400;
+    color: #a66b82;
+}
