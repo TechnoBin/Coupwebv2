@@ -1459,3 +1459,96 @@ em {
     font-style: italic;
     line-height: 1.75;
 }
+.final-card .surprise {
+    position: relative;
+    margin: 30px auto 0;
+    max-width: 520px;
+    border-radius: 26px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 177, 205, 0.22),
+            transparent 42%
+        ),
+        linear-gradient(
+            145deg,
+            #fffafd,
+            #fff5f9
+        );
+
+    border: 1px solid rgba(196, 127, 152, 0.18);
+
+    box-shadow:
+        0 22px 60px rgba(101, 48, 70, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.final-card .surprise-inner {
+    position: relative;
+    padding: 34px 24px 30px;
+    text-align: center;
+}
+.final-card .surprise-heart {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 54px;
+    height: 54px;
+    margin-bottom: 14px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 184, 207, 0.18);
+
+    font-size: 1.65rem;
+
+    box-shadow:
+        0 8px 22px rgba(178, 91, 122, 0.12);
+}
+.final-card .surprise-label {
+    display: block;
+    margin-bottom: 10px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+
+    color: #b36d86;
+}
+.final-card .surprise-inner h3 {
+    margin: 0 auto 16px;
+
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(1.55rem, 6vw, 2rem);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+
+    color: #613c4c;
+}
+.final-card .surprise-inner p {
+    max-width: 390px;
+    margin: 0 auto;
+
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 0.92rem;
+    font-style: italic;
+    line-height: 1.8;
+
+    color: #8f6878;
+}
+.final-card .heart-divider {
+    margin-top: 22px;
+
+    font-size: 0.9rem;
+    letter-spacing: 7px;
+
+    color: #c47f98;
+    opacity: 0.75;
+}
+
