@@ -1302,3 +1302,22 @@ em {
 
     pointer-events: none;
 }
+.memory h3 {
+    margin-bottom: 8px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+}
+
+.memory p {
+    color: var(--muted);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 0.88rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.65;
+    letter-spacing: 0;
+}
