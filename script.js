@@ -173,6 +173,7 @@ function closeMemory(fromPopState = false) {
     if (!modal || !modal.classList.contains("active")) return;
 
     const popup = modal.querySelector(".memory-popup");
+    const overlay = modal.querySelector(".memory-overlay");
     const sourceCard = modal._sourceCard;
 
     if (popup && sourceCard) {
@@ -191,62 +192,59 @@ function closeMemory(fromPopState = false) {
         const scaleX = cardRect.width / popupRect.width;
         const scaleY = cardRect.height / popupRect.height;
 
-        // Stop any previous transition
-        popup.style.transition = "none";
+        // 1. Popup ke saath background overlay ko bhi smooth fade-out karo
+        if (overlay) {
+            overlay.style.transition = "opacity 0.45s ease";
+            overlay.style.opacity = "0";
+        }
 
-        // Keep popup visible while starting the closing animation
-        popup.style.opacity = "1";
-
-        // Force current position
-        void popup.offsetWidth;
-
-        // Animate back into the exact clicked card
+        // 2. Popup ko reverse card ki taraf shrink aur fade-out karo
         popup.style.transition =
-            "transform 0.58s cubic-bezier(.4, 0, .2, 1), opacity 0.42s ease";
-
+            "transform 0.48s cubic-bezier(.4, 0, .2, 1), opacity 0.4s ease";
         popup.style.transform =
             `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
-
         popup.style.opacity = "0";
 
         setTimeout(() => {
+            // 3. Modal ko instantly hide karo taaki koi jump/flash na dikhe
+            modal.style.display = "none";
             modal.classList.remove("active");
 
-            // Reset only after the animation is completely finished
-            popup.style.transition = "none";
-            popup.style.transform = "none";
-            popup.style.opacity = "0";
+            // 4. Styles reset karo
+            popup.style.transition = "";
+            popup.style.transform = "";
+            popup.style.opacity = "";
+
+            if (overlay) {
+                overlay.style.transition = "";
+                overlay.style.opacity = "";
+            }
 
             document.body.style.overflow = "";
 
+            // Next time popup open karne ke liye display restore kar do
             requestAnimationFrame(() => {
-                popup.style.transition = "";
-                popup.style.transform = "";
-                popup.style.opacity = "";
-
+                modal.style.display = "";
                 window.scrollTo({
                     top: savedScrollY,
                     behavior: "auto"
                 });
             });
-        }, 580);
+        }, 480);
     } else {
         modal.classList.remove("active");
         document.body.style.overflow = "";
-
-        requestAnimationFrame(() => {
-            window.scrollTo({
-                top: savedScrollY,
-                behavior: "auto"
-            });
+        window.scrollTo({
+            top: savedScrollY,
+            behavior: "auto"
         });
     }
 
-    // Keep browser Back behavior intact
     if (!fromPopState && history.state && history.state.modalOpen) {
         history.back();
     }
 }
+
 
 
   /* ================================
