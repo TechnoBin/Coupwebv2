@@ -1397,3 +1397,65 @@ em {
 .final-card h2 em {
     color: #8f536c;
 }
+.final-card .surprise-btn {
+    position: relative;
+    overflow: hidden;
+    margin-top: 12px;
+    padding: 14px 24px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+
+    background: linear-gradient(135deg, #8f536c, #b56f89);
+    color: #fff;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+
+    box-shadow:
+        0 10px 28px rgba(143, 83, 108, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.final-card .surprise-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 14px 34px rgba(143, 83, 108, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.final-card .surprise-btn:active {
+    transform: translateY(0) scale(0.97);
+}
+.final-card .surprise-inner {
+    padding: 28px 22px;
+}
+
+.final-card .surprise-label {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.final-card .surprise-inner h3 {
+    margin: 12px 0 14px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.final-card .surprise-inner p {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 0.92rem;
+    font-style: italic;
+    line-height: 1.75;
+}
