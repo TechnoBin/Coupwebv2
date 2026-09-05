@@ -1551,4 +1551,33 @@ em {
     color: #c47f98;
     opacity: 0.75;
 }
+.final-card .surprise {
+    animation: surpriseReveal 0.75s cubic-bezier(.16, 1, .3, 1) both;
+}
 
+@keyframes surpriseReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.97);
+        filter: blur(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+.final-card .surprise-heart {
+    animation: softHeart 2.8s ease-in-out infinite;
+}
+
+@keyframes softHeart {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
