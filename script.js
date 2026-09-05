@@ -85,53 +85,147 @@ And remember that eye filter that somehow only worked on me?  Still one of those
     const modal = document.getElementById("memoryModal");
     const modalImg = document.getElementById("memoryPopupImage");
     const text = document.getElementById("memoryPopupText");
-      // 1. Current Scroll Position Save karo (Top par add karein)
-  savedScrollY = window.scrollY || window.pageYOffset;
-    
-    // Reset animations
+
+    const article = memoryArticles[index];
+
+    if (!modal || !modalImg || !text || !article) return;
+
+    savedScrollY = window.scrollY || window.pageYOffset;
+
+    // Remember which card opened the popup
+    modal._sourceCard = article;
+
+    // Reset content animations
     modalImg.style.animation = "none";
     text.style.animation = "none";
-
-    // Force animation restart
-    void modalImg.offsetWidth;
-    void text.offsetWidth;
 
     // Set memory content
     modalImg.src = memoryData[index].image;
     text.textContent = memoryData[index].text;
 
-    // Start image animation
-    modalImg.style.animation =
-        "memoryImageReveal 0.7s cubic-bezier(.22, 1, .36, 1) forwards";
-
-    // Start text animation
-    text.style.animation =
-        "memoryTextReveal 0.9s cubic-bezier(.22, 1, .36, 1) 0.25s forwards, " +
-        "memoryTextFloat 4s ease-in-out 1.4s infinite";
-
+    // Open modal first so target dimensions can be measured
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
 
-      // 2. History state push karo (Function ke last me add karein)
-  history.pushState({ modalOpen: true }, "", window.location.href);
-  }
+    const animateFromCard = () => {
+        const cardRect = article.getBoundingClientRect();
+        const popupRect = modal.querySelector(".memory-popup").getBoundingClientRect();
+        const popup = modal.querySelector(".memory-popup");
 
-  function closeMemory(fromPopState = false) {
-  const modal = document.getElementById("memoryModal");
-  if (!modal || !modal.classList.contains("active")) return;
+        if (!popup) return;
 
-  modal.classList.remove("active");
-  document.body.style.overflow = "";
+        // Distance between card center and popup center
+        const cardCenterX = cardRect.left + cardRect.width / 2;
+        const cardCenterY = cardRect.top + cardRect.height / 2;
 
-  // Smooth scroll restoration
-  requestAnimationFrame(() => {
-    window.scrollTo(0, savedScrollY);
-  });
+        const popupCenterX = popupRect.left + popupRect.width / 2;
+        const popupCenterY = popupRect.top + popupRect.height / 2;
 
-  // Agar Cross (×) button se close hua hai, toh history balance karo
-  if (!fromPopState && history.state && history.state.modalOpen) {
-    history.back();
-  }
+        const translateX = cardCenterX - popupCenterX;
+        const translateY = cardCenterY - popupCenterY;
+
+        const scaleX = cardRect.width / popupRect.width;
+        const scaleY = cardRect.height / popupRect.height;
+
+        // Start exactly from the clicked card
+        popup.style.transition = "none";
+        popup.style.transformOrigin = "center center";
+        popup.style.transform =
+            `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
+        popup.style.opacity = "1";
+
+        // Force browser to register starting position
+        void popup.offsetWidth;
+
+        // Smoothly expand into the popup
+        requestAnimationFrame(() => {
+            popup.style.transition =
+                "transform 0.72s cubic-bezier(.16, 1, .3, 1)";
+            popup.style.transform =
+                "translate(0, 0) scale(1)";
+        });
+
+        // Content animation starts slightly after the card expands
+        requestAnimationFrame(() => {
+            modalImg.style.animation =
+                "memoryImageReveal 0.7s cubic-bezier(.22, 1, .36, 1) 0.18s both";
+
+            text.style.animation =
+                "memoryTextReveal 0.9s cubic-bezier(.22, 1, .36, 1) 0.32s both, " +
+                "memoryTextFloat 4s ease-in-out 1.5s infinite";
+        });
+    };
+
+    // Wait for image dimensions when needed
+    if (modalImg.complete) {
+        requestAnimationFrame(animateFromCard);
+    } else {
+        modalImg.addEventListener("load", animateFromCard, { once: true });
+    }
+
+    // Browser history
+    history.pushState({ modalOpen: true }, "", window.location.href);
+}
+
+
+function closeMemory(fromPopState = false) {
+    const modal = document.getElementById("memoryModal");
+
+    if (!modal || !modal.classList.contains("active")) return;
+
+    const popup = modal.querySelector(".memory-popup");
+    const sourceCard = modal._sourceCard;
+
+    if (popup && sourceCard) {
+        const cardRect = sourceCard.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        const cardCenterX = cardRect.left + cardRect.width / 2;
+        const cardCenterY = cardRect.top + cardRect.height / 2;
+
+        const popupCenterX = popupRect.left + popupRect.width / 2;
+        const popupCenterY = popupRect.top + popupRect.height / 2;
+
+        const translateX = cardCenterX - popupCenterX;
+        const translateY = cardCenterY - popupCenterY;
+
+        const scaleX = cardRect.width / popupRect.width;
+        const scaleY = cardRect.height / popupRect.height;
+
+        popup.style.transition =
+            "transform 0.55s cubic-bezier(.4, 0, .2, 1), opacity 0.4s ease";
+
+        popup.style.transform =
+            `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
+
+        popup.style.opacity = "0";
+
+        setTimeout(() => {
+            modal.classList.remove("active");
+
+            popup.style.transform = "";
+            popup.style.opacity = "";
+            popup.style.transition = "";
+
+            document.body.style.overflow = "";
+
+            requestAnimationFrame(() => {
+                window.scrollTo(0, savedScrollY);
+            });
+        }, 550);
+    } else {
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+
+        requestAnimationFrame(() => {
+            window.scrollTo(0, savedScrollY);
+        });
+    }
+
+    // Cross/overlay close → balance browser history
+    if (!fromPopState && history.state && history.state.modalOpen) {
+        history.back();
+    }
 }
 
 
