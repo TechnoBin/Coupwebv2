@@ -1321,3 +1321,12 @@ em {
     line-height: 1.65;
     letter-spacing: 0;
 }
+.memory-whisper {
+    margin: -14px 0 30px;
+    font-family: "Parisienne", cursive;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--muted);
+    line-height: 1.3;
+    text-align: center;
+}
