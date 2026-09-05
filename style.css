@@ -1324,9 +1324,9 @@ em {
 .memory-whisper {
     margin: -14px 0 30px;
     font-family: "Parisienne", cursive;
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 400;
-    color: var(--muted);
+    color: #a66b82;
     line-height: 1.3;
     text-align: center;
 }
