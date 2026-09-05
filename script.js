@@ -73,7 +73,12 @@ It just felt so good being there with you... and then you gave me that chocolate
           text: `Our first long trip together, away to the beaches… 
 We explored, laughed, stayed up, and did some things uk 😂... 
 And remember that eye filter that somehow only worked on me?  Still one of those random moments I love remembering. ❤️`
-      }
+      },
+    { 
+      image: "images/memory4.jpg",
+       text: `Maybe it was just another cheesecake date, but sitting there with you made it feel like another little chapter of us. 
+       Some moments don't need anything grand just you, me, and something sweet to share.`
+    }
   ];
 
   function openMemory(index) {
