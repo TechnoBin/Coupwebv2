@@ -1582,3 +1582,28 @@ em {
         transform: scale(1.08);
     }
 }
+/* ═════════════════════════════════════
+   MEMORY CARD → POPUP TRANSITION
+   ═════════════════════════════════════ */
+
+.memory-modal .memory-popup {
+    opacity: 1;
+    transform-origin: center center;
+    will-change: transform, opacity;
+}
+
+.memory-modal.active .memory-popup {
+    opacity: 1;
+}
+
+/* Softer background entrance */
+.memory-modal .memory-overlay {
+    opacity: 0;
+    transition:
+        opacity 0.55s ease,
+        backdrop-filter 0.65s ease;
+}
+
+.memory-modal.active .memory-overlay {
+    opacity: 1;
+}
