@@ -167,7 +167,6 @@ And remember that eye filter that somehow only worked on me?  Still one of those
     history.pushState({ modalOpen: true }, "", window.location.href);
 }
 
-
 function closeMemory(fromPopState = false) {
     const modal = document.getElementById("memoryModal");
 
@@ -192,8 +191,18 @@ function closeMemory(fromPopState = false) {
         const scaleX = cardRect.width / popupRect.width;
         const scaleY = cardRect.height / popupRect.height;
 
+        // Stop any previous transition
+        popup.style.transition = "none";
+
+        // Keep popup visible while starting the closing animation
+        popup.style.opacity = "1";
+
+        // Force current position
+        void popup.offsetWidth;
+
+        // Animate back into the exact clicked card
         popup.style.transition =
-            "transform 0.55s cubic-bezier(.4, 0, .2, 1), opacity 0.4s ease";
+            "transform 0.58s cubic-bezier(.4, 0, .2, 1), opacity 0.42s ease";
 
         popup.style.transform =
             `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
@@ -203,26 +212,37 @@ function closeMemory(fromPopState = false) {
         setTimeout(() => {
             modal.classList.remove("active");
 
-            popup.style.transform = "";
-            popup.style.opacity = "";
-            popup.style.transition = "";
+            // Reset only after the animation is completely finished
+            popup.style.transition = "none";
+            popup.style.transform = "none";
+            popup.style.opacity = "0";
 
             document.body.style.overflow = "";
 
             requestAnimationFrame(() => {
-                window.scrollTo(0, savedScrollY);
+                popup.style.transition = "";
+                popup.style.transform = "";
+                popup.style.opacity = "";
+
+                window.scrollTo({
+                    top: savedScrollY,
+                    behavior: "auto"
+                });
             });
-        }, 550);
+        }, 580);
     } else {
         modal.classList.remove("active");
         document.body.style.overflow = "";
 
         requestAnimationFrame(() => {
-            window.scrollTo(0, savedScrollY);
+            window.scrollTo({
+                top: savedScrollY,
+                behavior: "auto"
+            });
         });
     }
 
-    // Cross/overlay close → balance browser history
+    // Keep browser Back behavior intact
     if (!fromPopState && history.state && history.state.modalOpen) {
         history.back();
     }
