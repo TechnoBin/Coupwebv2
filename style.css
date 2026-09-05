@@ -1357,3 +1357,43 @@ em {
     font-weight: 400;
     color: #a66b82;
 }
+.final-card {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 185, 210, 0.18),
+            transparent 38%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(255, 250, 252, 0.98),
+            rgba(255, 246, 250, 0.96)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    box-shadow:
+        0 30px 80px rgba(91, 43, 62, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+.final-card .sparkle {
+    margin-bottom: 18px;
+    font-family: "Playfair Display", serif;
+    font-size: 0.85rem;
+    letter-spacing: 7px;
+    color: #b77b91;
+    opacity: 0.8;
+}
+.final-card h2 {
+    margin-top: 8px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+}
+
+.final-card h2 em {
+    color: #8f536c;
+}
