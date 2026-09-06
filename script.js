@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      CONFIG
   ========================== */
-  const SECRET_PASSWORD = "forever";
+  const SECRET_PASSWORD = "bitch";
 
   /* =========================
      ELEMENTS
