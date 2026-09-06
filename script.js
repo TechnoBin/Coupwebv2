@@ -84,6 +84,12 @@ And remember that eye filter that somehow only worked on me?  Still one of those
        text: `We took the bus together, watched our first movie side by side, then wandered around the mall and shared a meal.
 
 Nothing fancy, nothing planned perfectly just us, laughing, talking, and making an ordinary day feel special. ♡`
+    },
+    {
+      image: "images/memory6.jpg",
+      text: `Even when it rained, we'd still meet, walk around under one umbrella, laugh about random things, and enjoy our little time together.
+
+Nothing special just us, and somehow, that was enough. ♡`
     }
   ];
 
