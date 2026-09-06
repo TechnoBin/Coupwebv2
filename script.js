@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =========================
      ELEMENTS
   ========================== */
+  // Auto scroll jump ko rokne ke liye
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+let savedScrollY = 0; // Scroll position hold karne ke liye variable
+  
   const screens = document.querySelectorAll(".screen");
   const passwordForm = document.getElementById("passwordForm");
   const passwordInput = document.getElementById("passwordInput");
@@ -33,6 +39,7 @@ let surpriseHeartInterval = null;
   let noMoveCount = 0;
   
 let fadeInterval = null;
+  let memoryScrollY = 0;
 
   const teaseMessages = [
     "Nice try. 😭",
@@ -50,24 +57,40 @@ let fadeInterval = null;
   const memoryData = [
       {
           image: "images/memory1.jpg",
-          text: `Nothing really went according to our first date plan 😂
-But somehow, it all turned out even better than we imagined. Maybe that was God’s plan after all. ❤️
+          text: `Nothing really went according to our first date plan 
+But somehow, it all turned out even better than we imagined. Maybe that was God’s plan after all. 
 
 And that beautiful purple sky… it just made an already perfect date feel even more magical. 💜✨`
       },
       {
           image: "images/memory2.jpg",
-          text: `We went to this little cafe, had some Maggi and snacks, and somehow everything tasted better just because you were there with me. ❤️
+          text: `We went to this little cafe, had some Maggi and snacks, and somehow everything tasted better just because you were there with me. 
 
-It just felt so good being there with you... and then you gave me that chocolate, making an already sweet moment even sweeter. 😗🍫✨`
+It just felt so good being there with you... and then you gave me that chocolate, making an already sweet moment even sweeter. 😗🍫`
       },
       {
           image: "images/memory3.jpg",
-          text: `Our first long trip together, away to the beaches… 🌊❤️
-We explored, laughed, stayed up, and did some things uk 😂... Everything just felt so much better with you beside me. ✨
+          text: `Our first long trip together, away to the beaches… 
+We explored, laughed, stayed up, and did some things uk 😂... 
+And remember that eye filter that somehow only worked on me?  Still one of those random moments I love remembering. ❤️`
+      },
+    { 
+      image: "images/memory4.jpg",
+       text: `Maybe it was just another cheesecake date, but sitting there with you made it feel like another little chapter of us. 
+       Some moments don't need anything grand just you, me, and something sweet to share.`
+    },
+    {
+      image: "images/memory5.jpg",
+       text: `We took the bus together, watched our first movie side by side, then wandered around the mall and shared a meal.
 
-And remember that eye filter that somehow only worked on me? 😂 Still one of those random moments I love remembering. ❤️`
-      }
+Nothing fancy, nothing planned perfectly just us, laughing, talking, and making an ordinary day feel special. ♡`
+    },
+    {
+      image: "images/memory6.jpg",
+      text: `Even when it rained, we'd still meet, walk around under one umbrella, laugh about random things, and enjoy our little time together.
+
+Nothing special just us, and somehow, that was enough. ♡`
+    }
   ];
 
   function openMemory(index) {
@@ -75,36 +98,166 @@ And remember that eye filter that somehow only worked on me? 😂 Still one of t
     const modalImg = document.getElementById("memoryPopupImage");
     const text = document.getElementById("memoryPopupText");
 
-    // Reset animations
+    const article = memoryArticles[index];
+
+    if (!modal || !modalImg || !text || !article) return;
+
+    savedScrollY = window.scrollY || window.pageYOffset;
+
+    // Remember which card opened the popup
+    modal._sourceCard = article;
+
+    // Reset content animations
     modalImg.style.animation = "none";
     text.style.animation = "none";
-
-    // Force animation restart
-    void modalImg.offsetWidth;
-    void text.offsetWidth;
 
     // Set memory content
     modalImg.src = memoryData[index].image;
     text.textContent = memoryData[index].text;
 
-    // Start image animation
-    modalImg.style.animation =
-        "memoryImageReveal 0.7s cubic-bezier(.22, 1, .36, 1) forwards";
-
-    // Start text animation
-    text.style.animation =
-        "memoryTextReveal 0.9s cubic-bezier(.22, 1, .36, 1) 0.25s forwards, " +
-        "memoryTextFloat 4s ease-in-out 1.4s infinite";
-
+    // Open modal first so target dimensions can be measured
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    const animateFromCard = () => {
+        const cardRect = article.getBoundingClientRect();
+        const popupRect = modal.querySelector(".memory-popup").getBoundingClientRect();
+        const popup = modal.querySelector(".memory-popup");
+
+        if (!popup) return;
+
+        // Distance between card center and popup center
+        const cardCenterX = cardRect.left + cardRect.width / 2;
+        const cardCenterY = cardRect.top + cardRect.height / 2;
+
+        const popupCenterX = popupRect.left + popupRect.width / 2;
+        const popupCenterY = popupRect.top + popupRect.height / 2;
+
+        const translateX = cardCenterX - popupCenterX;
+        const translateY = cardCenterY - popupCenterY;
+
+        const scaleX = cardRect.width / popupRect.width;
+        const scaleY = cardRect.height / popupRect.height;
+
+        // Start exactly from the clicked card
+        popup.style.transition = "none";
+        popup.style.transformOrigin = "center center";
+        popup.style.transform =
+            `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
+        popup.style.opacity = "1";
+
+        // Force browser to register starting position
+        void popup.offsetWidth;
+
+        // Smoothly expand into the popup
+        requestAnimationFrame(() => {
+            popup.style.transition =
+                "transform 0.72s cubic-bezier(.16, 1, .3, 1)";
+            popup.style.transform =
+                "translate(0, 0) scale(1)";
+        });
+
+        // Content animation starts slightly after the card expands
+        requestAnimationFrame(() => {
+            modalImg.style.animation =
+                "memoryImageReveal 0.7s cubic-bezier(.22, 1, .36, 1) 0.18s both";
+
+            text.style.animation =
+                "memoryTextReveal 0.9s cubic-bezier(.22, 1, .36, 1) 0.32s both, " +
+                "memoryTextFloat 4s ease-in-out 1.5s infinite";
+        });
+    };
+
+    // Wait for image dimensions when needed
+    if (modalImg.complete) {
+        requestAnimationFrame(animateFromCard);
+    } else {
+        modalImg.addEventListener("load", animateFromCard, { once: true });
+    }
+
+    // Browser history
+    history.pushState({ modalOpen: true }, "", window.location.href);
 }
 
-  function closeMemory() {
-      const modal = document.getElementById("memoryModal");
-      modal.classList.remove("active");
-      document.body.style.overflow = "";
-  }
+function closeMemory(fromPopState = false) {
+    const modal = document.getElementById("memoryModal");
+
+    if (!modal || !modal.classList.contains("active")) return;
+
+    const popup = modal.querySelector(".memory-popup");
+    const overlay = modal.querySelector(".memory-overlay");
+    const sourceCard = modal._sourceCard;
+
+    if (popup && sourceCard) {
+        const cardRect = sourceCard.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+
+        const cardCenterX = cardRect.left + cardRect.width / 2;
+        const cardCenterY = cardRect.top + cardRect.height / 2;
+
+        const popupCenterX = popupRect.left + popupRect.width / 2;
+        const popupCenterY = popupRect.top + popupRect.height / 2;
+
+        const translateX = cardCenterX - popupCenterX;
+        const translateY = cardCenterY - popupCenterY;
+
+        const scaleX = cardRect.width / popupRect.width;
+        const scaleY = cardRect.height / popupRect.height;
+
+        // 1. Popup ke saath background overlay ko bhi smooth fade-out karo
+        if (overlay) {
+            overlay.style.transition = "opacity 0.45s ease";
+            overlay.style.opacity = "0";
+        }
+
+        // 2. Popup ko reverse card ki taraf shrink aur fade-out karo
+        popup.style.transition =
+            "transform 0.48s cubic-bezier(.4, 0, .2, 1), opacity 0.4s ease";
+        popup.style.transform =
+            `translate(${translateX}px, ${translateY}px) scale(${scaleX}, ${scaleY})`;
+        popup.style.opacity = "0";
+
+        setTimeout(() => {
+            // 3. Modal ko instantly hide karo taaki koi jump/flash na dikhe
+            modal.style.display = "none";
+            modal.classList.remove("active");
+
+            // 4. Styles reset karo
+            popup.style.transition = "";
+            popup.style.transform = "";
+            popup.style.opacity = "";
+
+            if (overlay) {
+                overlay.style.transition = "";
+                overlay.style.opacity = "";
+            }
+
+            document.body.style.overflow = "";
+
+            // Next time popup open karne ke liye display restore kar do
+            requestAnimationFrame(() => {
+                modal.style.display = "";
+                window.scrollTo({
+                    top: savedScrollY,
+                    behavior: "auto"
+                });
+            });
+        }, 480);
+    } else {
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+        window.scrollTo({
+            top: savedScrollY,
+            behavior: "auto"
+        });
+    }
+
+    if (!fromPopState && history.state && history.state.modalOpen) {
+        history.back();
+    }
+}
+
+
 
   /* ================================
      MEMORY POPUP EVENT LISTENERS
@@ -120,14 +273,14 @@ And remember that eye filter that somehow only worked on me? 😂 Still one of t
 
   const memoryOverlay = document.querySelector('.memory-overlay');
   const memoryCloseBtn = document.querySelector('.memory-close');
+if (memoryOverlay) {
+  memoryOverlay.addEventListener("click", () => closeMemory(false));
+}
 
-  if (memoryOverlay) {
-      memoryOverlay.addEventListener('click', closeMemory);
-  }
+if (memoryCloseBtn) {
+  memoryCloseBtn.addEventListener("click", () => closeMemory(false));
+}
 
-  if (memoryCloseBtn) {
-      memoryCloseBtn.addEventListener('click', closeMemory);
-  }
 
 
 
@@ -403,6 +556,22 @@ if (heartFlow) {
     showScreen("passwordScreen");
     setTimeout(() => passwordInput.focus(), 250);
   });
+    
+    /* =========================
+     BACK BUTTON HANDLING
+  ========================== */
+  history.replaceState({ coupweb: true }, "", window.location.href);
+
+  window.addEventListener("popstate", () => {
+    const memoryModal = document.getElementById("memoryModal");
+
+    // Agar popup khula hai, toh bas popup close karo aur scroll restore hone do
+    if (memoryModal && memoryModal.classList.contains("active")) {
+      closeMemory(true); // 'true' batata hai ki browser ka back button daba hai
+    }
+  });
+
+    
 
   /* =========================
      TOAST
